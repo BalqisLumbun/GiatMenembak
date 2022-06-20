@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--link rel="stylesheet" type="text/css" href="tally.css" media="screen" /-->
+    <title>Hitung Skor</title>
+    <style>
+        body {
+            background: rgb(22, 116, 0);
+            background: linear-gradient(180deg, rgba(22, 116, 0, 1) 0%, rgb(54, 139, 55) 60%, rgb(17, 104, 28) 100%);
+        }
+        
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            padding: 1rem;
+        }
+        
+        table {
+            margin: auto;
+        }
+        
+        th {
+            background-color: rgb(12, 68, 3);
+            color: white;
+        }
+        
+        td {
+            text-align: center;
+        }
+        
+        .cont {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            border: 5px solid #000;
+            border-radius: 10px;
+            background-color: darkkhaki;
+        }
+        
+        .cont2 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            border: 5px solid #000;
+            border-radius: 10px;
+            background-color: darkkhaki;
+        }
+        
+        .container {
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .container1 {
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .container2 {
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .button {
+            border: 5px solid #000;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgb(65, 78, 193) 0%, rgb(42, 14, 152) 60%, rgb(65, 78, 193) 100%);
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-family: "Century Gothic";
+            font-weight: bolder;
+        }
+        
+        h1 {
+            font-family: "Century Gothic";
+            font-size: large;
+            font-weight: bold;
+            color: azure;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        
+        h2 {
+            font-family: "Century Gothic";
+            font-size: medium;
+            font-weight: bold;
+            color: azure;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        
+        tbody tr:nth-child(odd) {
+            background: rgb(154, 229, 229);
+        }
+        
+        tbody tr:nth-child(even) {
+            background: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cont">
+        <div class="container">
+            <img id="wcds" src="wcds.png" height="100px" width="100px">
+        </div>
+        <div class="container1">
+            <h1>
+                RESIMEN MAHASISWA
+            </h1>
+            <h1>
+                UNIVERSITAS INDONESIA
+            </h1>
+            <br>
+            <h2>
+                PAPAN SKOR
+            </h2>
+            <h2>
+                PESERTA GIAT MENEMBAK
+            </h2>
+        </div>
+        <div class="container2">
+            <img id="wiramakara" src="wira makara.png" height="100px" width="100px">
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="cont">
+        <br>
+        <font face="Century Gothic">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Nama
+                        </th>
+                        <th>
+                            Kaleng
+                        </th>
+                        <th>
+                            Target Senapan
+                        </th>
+                        <th>
+                            Target Pistol
+                        </th>
+                        <th>
+                            Reaksi
+                        </th>
+                        <th>
+                            Metsir
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Oka
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            Belum Lulus
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Oka
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            Belum Lulus
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </font>
+        <br>
+    </div>
+    <br>
+    <br>
+    <center>
+        <button class="button button1">Edit</button>
+        <button class="button button2">Simpan</button>
+        <button class="button button3" onclick="addRow('dataTable')">Tambah Nama</button>
+    </center>
+
+    <script>
+        function addRow(tableID) {
+            var table = document.getElementById(tableID);
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.name = "txtbox[]";
+            cell1.appendChild(element1);
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "text";
+            element2.name = "txtbox[]";
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.name = "txtbox[]";
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "text";
+            element4.name = "txtbox[]";
+            cell4.appendChild(element4);
+
+            var cell5 = row.insertCell(4);
+            var element5 = document.createElement("input");
+            element5.type = "text";
+            element5.name = "txtbox[]";
+            cell5.appendChild(element5);
+
+            var cell6 = row.insertCell(5);
+            var element6 = document.createElement("input");
+            element6.type = "text";
+            element6.name = "txtbox[]";
+            cell6.appendChild(element6);
+
+            var cell7 = row.insertCell(6);
+            var element7 = document.createElement("input");
+            element7.type = "text";
+            element7.name = "txtbox[]";
+            cell7.appendChild(element7);
+
+            var cell8 = row.insertCell(7);
+            var element8 = document.createElement("input");
+            element8.type = "text";
+            element8.name = "txtbox[]";
+            cell8.appendChild(element8);
+        }
+    </script>
+
+</body>
+
+</html>
