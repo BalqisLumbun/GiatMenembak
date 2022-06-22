@@ -21,6 +21,7 @@
         
         table {
             margin: auto;
+            border-radius: 6px;
         }
         
         th {
@@ -36,23 +37,22 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            border: 5px solid #000;
+            border: 3px solid #000;
             border-radius: 10px;
-            background-color: darkkhaki;
+            background: linear-gradient(90deg, #bdb76b 0%, #cdca8f 40%, #dbd68c 80%);
+            max-width: auto;
         }
         
-        .cont2 {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            border: 5px solid #000;
-            border-radius: 10px;
-            background-color: darkkhaki;
+        .containerless label {
+            text-align: center;
+            font-family: "Century Gothic";
+            font-weight: bolder;
+            color: white;
         }
         
         .container {
-            min-width: 50px;
-            min-height: 50px;
+            max-width: 100px;
+            max-height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -71,8 +71,8 @@
         }
         
         .container2 {
-            min-width: 50px;
-            min-height: 50px;
+            max-width: 100px;
+            max-height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -81,14 +81,18 @@
         }
         
         .button {
-            border: 5px solid #000;
+            border: 2px solid #000;
             border-radius: 10px;
-            background: linear-gradient(90deg, rgb(65, 78, 193) 0%, rgb(42, 14, 152) 60%, rgb(65, 78, 193) 100%);
+            background: rgb(89, 103, 228);
             color: white;
             padding: 16px 32px;
             text-align: center;
             font-family: "Century Gothic";
             font-weight: bolder;
+        }
+        
+        .button:hover {
+            background: linear-gradient(90deg, rgb(65, 78, 193) 0%, rgb(42, 14, 152) 60%, rgb(65, 78, 193) 100%);
         }
         
         h1 {
@@ -108,7 +112,7 @@
         }
         
         tbody tr:nth-child(odd) {
-            background: rgb(154, 229, 229);
+            background: rgb(157, 188, 255);
         }
         
         tbody tr:nth-child(even) {
@@ -120,7 +124,13 @@
 <body>
     <div class="cont">
         <div class="container">
+            <br>
+            <br>
+            <br>
             <img id="wcds" src="wcds.png" height="100px" width="100px">
+        </div>
+        <div class="container">
+            <h1> </h1>
         </div>
         <div class="container1">
             <h1>
@@ -137,7 +147,13 @@
                 PESERTA GIAT MENEMBAK
             </h2>
         </div>
+        <div class="container">
+            <h1> </h1>
+        </div>
         <div class="container2">
+            <br>
+            <br>
+            <br>
             <img id="wiramakara" src="wira makara.png" height="100px" width="100px">
         </div>
     </div>
@@ -146,6 +162,9 @@
     <div class="cont">
         <br>
         <font face="Century Gothic">
+            <center>
+                <h2>SKOR TERKINI</h2>
+            </center><br>
             <table>
                 <thead>
                     <tr>
@@ -172,118 +191,93 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Oka
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            Belum Lulus
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Oka
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            Belum Lulus
-                        </td>
-                    </tr>
+                <tbody id="table">
                 </tbody>
             </table>
+            <br>
+            <center>
+                <h2>-2022-</h2>
+            </center>
         </font>
-        <br>
     </div>
     <br>
     <br>
     <center>
+        <div class="containerless">
+            <br>
+            <label for="pilihEdit">Edit Nilai:</label>
+        </div>
+        <br>
         <button class="button button1">Edit</button>
-        <button class="button button2">Simpan</button>
-        <button class="button button3" onclick="addRow('dataTable')">Tambah Nama</button>
+        <br>
+        <div class="containerless">
+            <br>
+            <label for="peserta">Peserta Baru:</label>
+        </div>
+        <br>
+        <input type="text" id="peserta" name="siswa" placeholder="Isi nama peserta..">
+        <button class="button button3" onclick="addRow()">Tambah Nama</button>
     </center>
 
     <script>
-        function addRow(tableID) {
-            var table = document.getElementById(tableID);
-            var rowCount = table.rows.length;
-            var row = table.insertRow(rowCount);
+        var jumlahPeserta = 0;
+        const namaPeserta = document.getElementById('peserta');
 
-            var cell1 = row.insertCell(0);
-            var element1 = document.createElement("input");
-            element1.type = "text";
-            element1.name = "txtbox[]";
-            cell1.appendChild(element1);
-            var cell2 = row.insertCell(1);
-            var element2 = document.createElement("input");
-            element2.type = "text";
-            element2.name = "txtbox[]";
-            cell2.appendChild(element2);
+        /*const dataPeserta = new Array(namaPeserta, 0, 0, 0, 0, 0, "Belum Lulus")*/
+        function createData() {
+            const siswa = new Object();
+            siswa.nama = namaPeserta;
+            siswa.kaleng = 0;
+            siswa.senapan = 0;
+            siswa.pistol = 0;
+            siswa.reaksi = 0;
+            siswa.metsir = 0;
+            siswa.status = "Belum Lulus";
+            const myJSON = JSON.stringify(siswa);
+        }
 
-            var cell3 = row.insertCell(2);
-            var element1 = document.createElement("input");
-            element1.type = "text";
-            element1.name = "txtbox[]";
-            cell3.appendChild(element3);
+        function setKaleng() {
 
-            var cell4 = row.insertCell(3);
-            var element4 = document.createElement("input");
-            element4.type = "text";
-            element4.name = "txtbox[]";
-            cell4.appendChild(element4);
+        }
 
-            var cell5 = row.insertCell(4);
-            var element5 = document.createElement("input");
-            element5.type = "text";
-            element5.name = "txtbox[]";
-            cell5.appendChild(element5);
+        function saveProgress() {
+            var saveNilai = {
+                siswa: siswa,
+            };
+            localStorage.setItem('saveNilai', JSON.stringify(saveNilai));
+        }
 
-            var cell6 = row.insertCell(5);
-            var element6 = document.createElement("input");
-            element6.type = "text";
-            element6.name = "txtbox[]";
-            cell6.appendChild(element6);
+        function loadProgress() {
+            var lastSave = JSON.parse(localStorage.getItem("saveNilai"));
+        }
 
-            var cell7 = row.insertCell(6);
-            var element7 = document.createElement("input");
-            element7.type = "text";
-            element7.name = "txtbox[]";
-            cell7.appendChild(element7);
+        function addRow() {
+            if (namaPeserta.value == "") {
+                alert("Nama Peserta belum diisi.")
+            } else {
+                var row = document.createElement("tr");
+                var dataHead = document.createElement("td");
+                row.appendChild(dataHead);
+                dataHead.innerHTML = namaPeserta.value;
+                for (let i = 1; i < 6; i++) {
+                    var data = document.createElement("td");
+                    row.appendChild(data);
+                    data.innerHTML = 0;
+                }
+                var dataTail = document.createElement("td");
+                row.appendChild(dataTail);
+                dataTail.innerHTML = "Belum Lulus";
 
-            var cell8 = row.insertCell(7);
-            var element8 = document.createElement("input");
-            element8.type = "text";
-            element8.name = "txtbox[]";
-            cell8.appendChild(element8);
+                var element = document.getElementById("table");
+                element.appendChild(row);
+                localStorage.setItem("dataNo" + jumlahPeserta + "", createData());
+                jumlahPeserta++;
+                saveProgress();
+            }
+
+            window.onload = function() {
+                loadProgress();
+            }
         }
     </script>
 
