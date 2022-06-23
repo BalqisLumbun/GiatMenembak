@@ -205,10 +205,19 @@
     <center>
         <div class="containerless">
             <br>
-            <label for="pilihEdit">Edit Nilai:</label>
+            <label for="editnama">Edit Nilai:</label>
         </div>
         <br>
-        <button class="button button1">Edit</button>
+        <input type="text" id="editnama" name="editsiswa" placeholder="Isi nama peserta..">
+        <input type="number" min="0" id="editnilai" name="editnilai" placeholder="Isi nilai peserta..">
+        <select name="skill" id="skill">
+            <option value="kaleng">Kaleng</option>
+            <option value="senapan">Senapan</option>
+            <option value="pistol">Pistol</option>
+            <option value="reaksi">Reaksi</option>
+            <option value="metsir">Metsir</option>
+        </select>
+        <button class="button button1" onclick="setPoin()">Edit</button>
         <br>
         <div class="containerless">
             <br>
@@ -217,67 +226,159 @@
         <br>
         <input type="text" id="peserta" name="siswa" placeholder="Isi nama peserta..">
         <button class="button button3" onclick="addRow()">Tambah Nama</button>
+        <br>
+        <button class="button button2" onclick="saveProgress()"></button>
     </center>
 
     <script>
         var jumlahPeserta = 0;
         const namaPeserta = document.getElementById('peserta');
+        const namaPeserta2 = document.getElementById('editnama');
+        const poin = document.getElementById('editnilai');
+        const skill = document.getElementById('skill')
 
-        /*const dataPeserta = new Array(namaPeserta, 0, 0, 0, 0, 0, "Belum Lulus")*/
+        let kumpulanSiswa = [];
+
         function createData() {
-            const siswa = new Object();
-            siswa.nama = namaPeserta;
-            siswa.kaleng = 0;
-            siswa.senapan = 0;
-            siswa.pistol = 0;
-            siswa.reaksi = 0;
-            siswa.metsir = 0;
-            siswa.status = "Belum Lulus";
-            const myJSON = JSON.stringify(siswa);
-        }
-
-        function setKaleng() {
+            let siswa = [namaPeserta.value, 0, 0, 0, 0, 0, "Belum Lulus"]
+            kumpulanSiswa.push(siswa);
 
         }
 
-        function saveProgress() {
-            var saveNilai = {
-                siswa: siswa,
-            };
-            localStorage.setItem('saveNilai', JSON.stringify(saveNilai));
+        function getVal() {
+            const val = document.getElementById('input').value;
+            console.log(val);
+        }
+
+        function setStatus(p) {
+            var total = 0;
+            for (let i = 1; i < 6; i++) {
+                if (kumpulanSiswa[p][i] >= 70) {
+                    total++;
+                }
+            }
+            return total;
+        }
+
+        function setPoin() {
+            if (checkIterate(namaPeserta2.value) == 0) {
+                alert("Nama peserta tidak ada.");
+            } else {
+                if (poin.value == "" || poin.value < 0) {
+                    alert("Nilai tidak valid.");
+                } else {
+                    if (skill.value == 'kaleng') {
+                        for (let i = 0; i < jumlahPeserta; i++) {
+                            if (namaPeserta2.value == kumpulanSiswa[i][0]) {
+                                kumpulanSiswa[i][1] = poin.value;
+                                document.getElementById('table').rows.item(i).cells.item(1).innerHTML = poin.value;
+                                if (setStatus(i) == 5) {
+                                    kumpulanSiswa[i][6] = "Lulus";
+                                    document.getElementById('table').rows.item(i).cells.item(6).innerHTML = "Lulus";
+                                }
+                            };
+                        }
+                    } else if (skill.value == 'senapan') {
+                        for (let i = 0; i < jumlahPeserta; i++) {
+                            if (namaPeserta2.value == kumpulanSiswa[i][0]) {
+                                kumpulanSiswa[i][2] = poin.value;
+                                document.getElementById('table').rows.item(i).cells.item(2).innerHTML = poin.value;
+                                if (setStatus(i) == 5) {
+                                    kumpulanSiswa[i][6] = "Lulus";
+                                    document.getElementById('table').rows.item(i).cells.item(6).innerHTML = "Lulus";
+                                }
+                            };
+                        }
+                    } else if (skill.value == 'pistol') {
+                        for (let i = 0; i < jumlahPeserta; i++) {
+                            if (namaPeserta2.value == kumpulanSiswa[i][0]) {
+                                kumpulanSiswa[i][3] = poin.value;
+                                document.getElementById('table').rows.item(i).cells.item(3).innerHTML = poin.value;
+                                if (setStatus(i) == 5) {
+                                    kumpulanSiswa[i][6] = "Lulus";
+                                    document.getElementById('table').rows.item(i).cells.item(6).innerHTML = "Lulus";
+                                }
+                            };
+                        }
+                    } else if (skill.value == 'reaksi') {
+                        for (let i = 0; i < jumlahPeserta; i++) {
+                            if (namaPeserta2.value == kumpulanSiswa[i][0]) {
+                                kumpulanSiswa[i][4] = poin.value;
+                                document.getElementById('table').rows.item(i).cells.item(4).innerHTML = poin.value;
+                                if (setStatus(i) == 5) {
+                                    kumpulanSiswa[i][6] = "Lulus";
+                                    document.getElementById('table').rows.item(i).cells.item(6).innerHTML = "Lulus";
+                                }
+                            };
+                        }
+                    } else if (skill.value == 'metsir') {
+                        for (let i = 0; i < jumlahPeserta; i++) {
+                            if (namaPeserta2.value == kumpulanSiswa[i][0]) {
+                                kumpulanSiswa[i][5] = poin.value;
+                                document.getElementById('table').rows.item(i).cells.item(5).innerHTML = poin.value;
+                                if (setStatus(i) == 5) {
+                                    kumpulanSiswa[i][6] = "Lulus";
+                                    document.getElementById('table').rows.item(i).cells.item(6).innerHTML = "Lulus";
+                                }
+                            };
+                        }
+                    }
+                    localStorage.setItem("kumpulanSiswa", JSON.stringify(kumpulanSiswa));
+                }
+
+            }
         }
 
         function loadProgress() {
-            var lastSave = JSON.parse(localStorage.getItem("saveNilai"));
+            let lastSave = localStorage.getItem("kumpulanSiswa");
+            if (lastSave) {
+                lastSave = JSON.parse(lastSave);
+                for (let i = 0; i < kumpulanSiswa.length; i++) {
+                    var row = document.createElement("tr");
+                    for (let i = 0; i < 7; i++) {
+                        var data = document.createElement("td");
+                        row.appendChild(data);
+                        data.innerHTML = kumpulanSiswa[jumlahPeserta][i];
+                    }
+                }
+                var element = document.getElementById("table");
+                element.appendChild(row);
+            }
+        }
+
+        function checkIterate(isi) {
+            for (let i = 0; i < jumlahPeserta; i++) {
+                if (isi == kumpulanSiswa[i][0]) {
+                    return 1;
+                };
+            }
+            return 0;
         }
 
         function addRow() {
             if (namaPeserta.value == "") {
                 alert("Nama Peserta belum diisi.")
+            } else if (checkIterate(namaPeserta.value) == 1) {
+                alert("Nama peserta sudah ada.")
             } else {
+                createData();
                 var row = document.createElement("tr");
-                var dataHead = document.createElement("td");
-                row.appendChild(dataHead);
-                dataHead.innerHTML = namaPeserta.value;
-                for (let i = 1; i < 6; i++) {
+                for (let i = 0; i < 7; i++) {
                     var data = document.createElement("td");
                     row.appendChild(data);
-                    data.innerHTML = 0;
+                    data.innerHTML = kumpulanSiswa[jumlahPeserta][i];
                 }
-                var dataTail = document.createElement("td");
-                row.appendChild(dataTail);
-                dataTail.innerHTML = "Belum Lulus";
+                jumlahPeserta++;
 
                 var element = document.getElementById("table");
                 element.appendChild(row);
-                localStorage.setItem("dataNo" + jumlahPeserta + "", createData());
-                jumlahPeserta++;
-                saveProgress();
-            }
 
-            window.onload = function() {
-                loadProgress();
+                localStorage.setItem("kumpulanSiswa", arr);
             }
+        }
+
+        window.onload = function() {
+            loadProgress();
         }
     </script>
 
